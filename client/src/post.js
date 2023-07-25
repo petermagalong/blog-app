@@ -1,25 +1,34 @@
-export default function Post() {
+import { formatISO9075 } from "date-fns";
+import { Link } from "react-router-dom";
+export default function Post({
+  _id,
+  title,
+  summary,
+  cover,
+  content,
+  createdAt,
+  author,
+}) {
+  console.log({ _id, title, summary, cover, content });
   return (
     <div className="post">
       <div className="image">
-        <img
-          src="https://miro.medium.com/v2/resize:fit:2400/0*hDAyhnOx767w5qma.jpg"
-          alt=""
-        />
+        <Link to={`/post/${_id}`}>
+          <img src={"http://localhost:4000/" + cover} alt="" />
+        </Link>
       </div>
 
       <div className="texts">
-        <h2>Computer shop</h2>
+        <Link to={`/post/${_id}`}>
+          <h2>{title}</h2>
+        </Link>
         <p className="info">
-          <span className="author">Peter magalong</span>
-          <time>2023-01-06 16:45</time>
+          <span className="author">{author.username}</span>
+          <time>{formatISO9075(new Date(createdAt))}</time>
+          {/* <time>{format(new Date(createdAt), "MMM d, yyy HH:mm")}</time> */}
         </p>
-        <p>
-          Your background image for website is not just something that looks
-          good. It actually affects the entire user experience. It has the
-          potential to become a powerful storytelling tool that can reel your
-          audience in and entice them to stick around.{" "}
-        </p>
+        <p className="summary">{summary}</p>
+        {/* react-time-ago */}
       </div>
     </div>
   );
